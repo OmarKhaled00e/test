@@ -5,26 +5,25 @@ class DioClient {
   // 1. التهيئة الأساسية مع تصحيح 'Content-Type'
   final Dio _dio = Dio(
     BaseOptions(
-      baseUrl: 'http://192.168.1.5:8000/api',
+      baseUrl: 'http://10.0.2.2:8000/api',
       headers: {"Content-Type": 'application/json'}, // تم تصحيح الواصلة
-      connectTimeout: const Duration(seconds: 30), // إضافة مهلة اتصال مقترحة
-      receiveTimeout: const Duration(seconds: 30), // إضافة مهلة استلام مقترحة
+      connectTimeout: const Duration(seconds: 60), // إضافة مهلة اتصال مقترحة
+      receiveTimeout: const Duration(seconds: 60), // إضافة مهلة استلام مقترحة
     ),
   );
 
   DioClient() {
     // 2. معترضات (Interceptors)
-    _dio.interceptors.add(LogInterceptor(
-      requestBody: true,
-      responseBody: true,
-    ));
-    
+    _dio.interceptors.add(
+      LogInterceptor(requestBody: true, responseBody: true),
+    );
+
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
           // جلب التوكن من المساعد (Helper)
-          final token = await PrefHelper.getToken(); 
-          
+          final token = await PrefHelper.getToken();
+
           if (token != null && token.isNotEmpty && token != 'guest') {
             options.headers['Authorization'] = 'Bearer $token';
           }
@@ -34,7 +33,7 @@ class DioClient {
       ),
     );
   }
-  
+
   // 3. المُسترجع (Getter)
   Dio get dio => _dio;
 }

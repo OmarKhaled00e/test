@@ -149,9 +149,9 @@ class _SignupState extends State<Signup> {
                               text: "Signup",
                               onTap: () {
                                 if (formkey.currentState!.validate()) {
-                                  context.read<SignupCubit>().Signup(
+                                  context.read<SignupCubit>().signup(
                                     name: nameController.text,
-                                    email: emailController.text,
+                                  email: emailController.text,
                                     password: passwordController.text,
                                   );
                                 }

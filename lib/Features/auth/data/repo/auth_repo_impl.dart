@@ -21,7 +21,9 @@ class AuthRepoImpl extends AuthRepo {
         password: password,
         name: name,
       );
+      print('string');
       return right(user);
+
     } catch (e) {
       if (e is DioError) {
         return left(ServerFailure.fromDioError(e));
