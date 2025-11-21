@@ -11,7 +11,7 @@ class SignupCubit extends Cubit<SignupState> {
   SignupCubit(this.buttonSignup) : super(SignupInitial());
   final ButtonSignup buttonSignup;
 
-  Future<Either<Failure, UserModel>> Signup({
+  Future<Either<Failure, UserModel>> signup({
     required String name,
     required String email,
     required String password,

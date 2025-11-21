@@ -1,6 +1,4 @@
 
-import 'package:dio/dio.dart';
-import 'package:test/core/error/failure.dart';
 import 'package:test/core/utils/dio_client.dart';
 
 class ApiService {
@@ -12,13 +10,14 @@ class ApiService {
     required String endPoint,
     dynamic body,
   }) async {
-    try {
-      final response = await _dio.dio.post(endPoint, data: body);
-      return Map<String, dynamic>.from(response.data);
-    } on DioError catch (e) {
-      throw ServerFailure.fromDioError(e);
-    } catch (e) {
-      throw ServerFailure(e.toString());
-    }
+    final response = await _dio.dio.post(endPoint, data: body);
+    return Map<String, dynamic>.from(response.data);
+  }
+
+  Future<Map<String, dynamic>> get({
+    required String endPoint,
+  }) async {
+    final response = await _dio.dio.get(endPoint);
+    return Map<String, dynamic>.from(response.data);
   }
 }

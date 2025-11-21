@@ -14,16 +14,18 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
   final ApiService apiService;
 
   AuthRemoteDataSourceImpl({required this.apiService});
+
   @override
   Future<UserModel> login({
     required String email,
     required String password,
   }) async {
-    final data = await apiService.post(
+    final response = await apiService.post(
       endPoint: '/login',
       body: {'email': email, 'password': password},
     );
-    return UserModel.fromJson(data);
+
+    return UserModel.fromJson(response['data']);
   }
 
   @override
@@ -32,10 +34,11 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
     required String password,
     required String name,
   }) async {
-    final data = await apiService.post(
+    final response = await apiService.post(
       endPoint: '/register',
       body: {'email': email, 'password': password, 'name': name},
     );
-    return UserModel.fromJson(data);
+
+    return UserModel.fromJson(response['data']);
   }
 }
