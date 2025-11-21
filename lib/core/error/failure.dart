@@ -46,7 +46,14 @@ class ServerFailure extends Failure {
         'There is a problem with Server , please try later ',
       );
     } else if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
-      return ServerFailure(response['error']['message']);
+      String errorMessage = 'Authentication failed. Please check your credentials.';
+      if (response is Map && response['error'] is Map) {
+        final message = response['error']['message'];
+        if (message != null && message is String) {
+          errorMessage = message;
+        }
+      }
+      return ServerFailure(errorMessage);
     } else {
       return ServerFailure('there was an error , please try again');
     }

@@ -5,7 +5,7 @@ class DioClient {
   // 1. التهيئة الأساسية مع تصحيح 'Content-Type'
   final Dio _dio = Dio(
     BaseOptions(
-      baseUrl: 'http://192.168.1.5:8000/api',
+      baseUrl: 'http://10.0.2.2:8000/api',
       headers: {"Content-Type": 'application/json'}, // تم تصحيح الواصلة
       connectTimeout: const Duration(seconds: 30), // إضافة مهلة اتصال مقترحة
       receiveTimeout: const Duration(seconds: 30), // إضافة مهلة استلام مقترحة

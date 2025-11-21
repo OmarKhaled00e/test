@@ -11,7 +11,7 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit(this.buttonLogin) : super(LoginInitial());
   final ButtonLogin buttonLogin;
 
-  Future<Either<Failure, UserModel>> login({
+  Future<void> login({
     required String email,
     required String password,
   }) async {
@@ -26,6 +26,5 @@ class LoginCubit extends Cubit<LoginState> {
         emit(LoginSuccess(userModal: user));
       },
     );
-    return result;
   }
 }
